@@ -47,6 +47,20 @@ npm run build
 
 This verifies the TypeScript and Vite production build. The current desktop script is a development wrapper around the local app, not a packaged installer.
 
+To create a pin-friendly Windows desktop app:
+
+```bash
+npm run build:desktop
+```
+
+The executable is written to:
+
+```text
+release/AttentionLoop-win32-x64/AttentionLoop.exe
+```
+
+Pin that executable, not `electron.exe`.
+
 ## How to Use It
 
 Capture one line:

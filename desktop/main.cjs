@@ -2,14 +2,15 @@ const { app, BrowserWindow, globalShortcut, ipcMain, Menu, shell } = require("el
 const fs = require("node:fs/promises");
 const path = require("node:path");
 
-const DEFAULT_URL = "http://127.0.0.1:5174/?desktop=mini";
-const deckUrl = process.env.ATTENTION_LOOP_URL || DEFAULT_URL;
-const dataDir = path.join(__dirname, "..", ".attention-loop");
+const deckUrl = process.env.ATTENTION_LOOP_URL || "";
+const appRoot = app.isPackaged ? path.dirname(process.execPath) : path.join(__dirname, "..");
+const dataDir = path.join(appRoot, ".attention-loop");
 const dataFile = path.join(dataDir, "deck.json");
 
 let win;
 
 app.setName("AttentionLoop");
+app.setAppUserModelId("com.paarguel.attentionloop");
 
 async function readDeckFile() {
   try {
@@ -53,7 +54,11 @@ function createWindow() {
 
   win.setAlwaysOnTop(true, "screen-saver");
   win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
-  win.loadURL(deckUrl);
+  if (deckUrl) {
+    win.loadURL(deckUrl);
+  } else {
+    win.loadFile(path.join(__dirname, "..", "dist", "index.html"), { query: { desktop: "mini" } });
+  }
 
   win.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
