@@ -1,40 +1,46 @@
-# Session Deck Product Brief
+# AttentionLoop Product Brief
 
 ## Intent
 
-Session Deck is an ephemeral workbench for a single work session. It is not a permanent task system. Its job is to restore orientation when tabs, agents, PRs, prompts, and notes all feel equally alive.
+AttentionLoop helps one human manage the scarce part of AI-assisted work: attention.
 
-## Core Question
+The app is not meant to become a giant task system. It is a small control surface for live work: what you are focused on, what an agent is doing, what is waiting on someone else, and what can safely stay parked.
 
-What am I doing right now, and why?
+## Product Sentence
 
-## MVP Flow
+AttentionLoop is an always-on-top attention queue for focused human work alongside parallel AI agents.
 
-1. Write the mission for the session.
-2. Type the work for the day into a capture box.
-3. Convert each line into a task card.
-4. Drag cards up and down or across columns as the session changes.
-5. Keep only one human-owned card in `Now`.
-6. Move delegated work into `Agents / Waiting`.
-7. Move review and decision points into `Needs Me`.
-8. Park anything real but not today.
-9. Close or clear the session when the loop is done.
+## Core Questions
 
-## Card Fields
+- What owns my attention right now?
+- What is running without me?
+- What is waiting on a person, tool, or decision?
+- What brainstorming thread should not be lost?
+- What can be parked without becoming a guilt pile?
 
-- Title
-- Note
+## Model
+
+Each thread has:
+
+- Task title
+- Project
 - Status
+- Where
+- Waiting on
+- Notes
 
-## Columns
+Status determines the lane:
 
-- To Do
-- Now
-- Agents / Waiting
-- Needs Me
-- Parked
-- Done
+- `now`: Focus
+- `running` or `done`: Agents
+- `later` with browser or brainstorming context: Brainstorming
+- `waiting`: Waiting
+- other `later`: Triage Shelf
 
-## Current Constraint
+## Principles
 
-Keep the interface clean and low-ceremony. Dragging is available, but status changes must also be available directly on a card.
+- Capture must be one line.
+- The human focus lane must stay singular.
+- Editing should happen inline, not in a separate task database.
+- Useful defaults should be easy to override.
+- Local data should stay local and out of git.

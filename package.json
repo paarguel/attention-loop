@@ -1,17 +1,26 @@
 {
-  "name": "session-deck",
+  "name": "attention-loop",
   "version": "0.1.0",
-  "private": true,
+  "description": "An always-on-top attention queue for focused human work alongside AI agents.",
+  "license": "MIT",
+  "keywords": [
+    "attention",
+    "focus",
+    "ai-agents",
+    "task-management",
+    "electron",
+    "react"
+  ],
+  "main": "desktop/main.cjs",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "desktop": "node desktop/launch.cjs",
+    "desktop:window": "electron desktop/main.cjs",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dnd-kit/core": "^6.3.1",
-    "@dnd-kit/sortable": "^10.0.0",
-    "@dnd-kit/utilities": "^3.2.2",
     "lucide-react": "^1.17.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
@@ -20,6 +29,7 @@
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
+    "electron": "^42.3.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.14"
   }
