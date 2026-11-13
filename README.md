@@ -1,8 +1,49 @@
 # AttentionLoop
 
-AttentionLoop is an always-on-top attention queue for focused human work alongside AI agents.
+**An always-on-top attention queue for one person working alongside several AI agents.**
 
-AI tools can run many threads in parallel. Your attention cannot. AttentionLoop gives you one small place to decide what owns your focus, what is running elsewhere, what is waiting, and what is parked for later.
+| | |
+| --- | --- |
+| **Problem** | AI coding agents can run five threads at once, but the person directing them can only think about one. Work goes stale quietly: an agent finishes and nobody checks it, an agent stalls, a reply you were waiting on never arrives. To-do apps are too heavy for this, and chat tabs don't show it at all. |
+| **Approach** | Model attention, not tasks. Each thread is owned by *you*, *an agent*, or *someone you're waiting on*. Only one thread can hold your focus. Capture takes one line, and a small pure function flags anything that has gone quiet too long. |
+| **What it is** | A local-first React app that runs in the browser or as a small floating Electron window that stays on top of your editor. There's no backend and no account. |
+| **Status** | Working MVP that I use day to day. MIT licensed. |
+
+<p><img src="docs/screenshots/deck.png" width="320" alt="AttentionLoop with Focus, Agents, Brainstorming, Waiting and Triage lanes"></p>
+
+## The problem
+
+When I started running several AI agents in parallel (Codex, Claude Code,
+browser research), my bottleneck stopped being typing and became attention.
+The failures were small and constant: a finished agent run sat unreviewed for
+an hour, a stalled one looked "busy", and a question I was waiting on fell
+out of view. Full task managers wanted projects, due dates and priorities. I
+needed a glanceable answer to five questions: *What owns my attention right
+now? What's running without me? What's waiting on someone else? What idea
+shouldn't get lost? What can I safely park?*
+
+## How I approached it
+
+- **Lanes come from status, not from filing.** A thread's status (`now`,
+  `running`, `done`, `waiting`, `later`) decides its lane: Focus, Agents,
+  Brainstorming, Waiting or Triage. You never drag cards into folders.
+- **One focus, enforced.** The Focus lane holds a single thread. Starting
+  something else means deciding where the current one goes.
+- **One-line capture.** `Work: draft launch notes in Codex` is parsed into
+  project, title and location with fuzzy project matching. Everything stays
+  editable inline.
+- **An anti-stale engine as a pure function.** `flagOf(thread)` marks agent
+  runs that have been quiet for 30+ minutes as *stalled*, finished runs as
+  *check it*, and waits older than two days as *overdue*. Parked items left
+  untouched for a week get a one-tap sweep, so the shelf never turns into a
+  guilt pile.
+- **Stay small and local.** It's a floating 430px window with keyboard
+  shortcuts to hide and refocus it. Data lives in a git-ignored JSON file (or
+  `localStorage` in the browser). There is no server to run or trust.
+
+**Stack:** React 19, TypeScript, Vite, Electron, lucide icons.
+
+---
 
 ## Features
 
